@@ -1,2 +1,2 @@
 # APLabs
-Repository for laboratory work on designing algorithms
+The program is launched from the Program.cs file
