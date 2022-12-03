@@ -1,2 +1,2 @@
 # APLabs
-The program is launched from the Program.cs file
+To run the application, run the Program.cs file
