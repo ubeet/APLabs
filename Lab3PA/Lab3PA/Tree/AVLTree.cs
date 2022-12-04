@@ -157,8 +157,12 @@ public static class AVLTree
         }
     }
 
-    public static Node ReadTree(Node node, StreamReader sr)
+    public static Node? ReadTree(Node node, StreamReader sr)
     {
+        if (sr.EndOfStream)
+        {
+            return null;
+        }
         var el = sr.ReadLine();
         Console.WriteLine(el);
         if (el.Equals("#") || el.Equals("")) return null;
