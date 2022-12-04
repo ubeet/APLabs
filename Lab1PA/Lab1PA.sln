@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab1PA", "Lab1PA\Lab1PA.csproj", "{E2206C92-2A01-4316-968A-677A57705428}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab1PA", "Lab1PA\Lab1PA.csproj", "{CF6023F3-E90F-438B-A92E-A6DFC3FBD214}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeTest", "MergeTest\MergeTest.csproj", "{22416509-8C21-42E7-BDE7-89742D502EEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +10,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E2206C92-2A01-4316-968A-677A57705428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2206C92-2A01-4316-968A-677A57705428}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2206C92-2A01-4316-968A-677A57705428}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2206C92-2A01-4316-968A-677A57705428}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF6023F3-E90F-438B-A92E-A6DFC3FBD214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF6023F3-E90F-438B-A92E-A6DFC3FBD214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF6023F3-E90F-438B-A92E-A6DFC3FBD214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF6023F3-E90F-438B-A92E-A6DFC3FBD214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22416509-8C21-42E7-BDE7-89742D502EEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22416509-8C21-42E7-BDE7-89742D502EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22416509-8C21-42E7-BDE7-89742D502EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22416509-8C21-42E7-BDE7-89742D502EEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
