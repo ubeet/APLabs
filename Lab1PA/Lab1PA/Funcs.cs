@@ -3,7 +3,7 @@ using static System.Int32;
 
 public class Funcs
 {
-    public static void Merge(int[] arr, int l, int m, int r)
+    private static void Merge(int[] arr, int l, int m, int r)
     {
         var n1 = m - l + 1;
         var n2 = r - m;
