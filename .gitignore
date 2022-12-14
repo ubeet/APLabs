@@ -12,6 +12,9 @@
 # Generated files
 .idea/**/contentModel.xml
 
+Lab3PA/Lab3PA/bin
+Lab3PA/Lab3PA/obj
+
 # Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids
