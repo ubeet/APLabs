@@ -9,6 +9,12 @@
 .idea/**/dictionaries
 .idea/**/shelf
 
+Lab2PA/Lab2PA/obj
+Lab2PA/Lab2PA/bin
+
+Lab2PA/MazeTest/bin
+Lab2PA/MazeTest/obj
+
 # Generated files
 .idea/**/contentModel.xml
 
