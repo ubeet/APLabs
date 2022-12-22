@@ -1,5 +1,7 @@
 ﻿namespace Lab2PA;
 
+using static Lab2PA.Funcs;
+
 public class IDS
 {
     public class Node
@@ -35,7 +37,6 @@ public class IDS
             var c = false;
             
             var temp = new List<Node>();
-            var num = open.Count;
             foreach (var t in open)
             {
                 var cc = false;
@@ -52,10 +53,7 @@ public class IDS
                     cc = true;
                     if (xp == eX && y == eY)
                     {
-                        Console.WriteLine($"Итераций: {iterations}");
-                        Console.WriteLine($"Состояний: {states}");
-                        Console.WriteLine($"Глухих углов: {deadEnds}");
-                        Console.WriteLine($"Состояний в памяти: {inMemoryStates}");
+                        PrintInfo(iterations, states, deadEnds, inMemoryStates);
                         return new Node(t, maze[xp, y]);
                     }
                     temp.Add(new Node(t, maze[xp, y]));
@@ -66,10 +64,7 @@ public class IDS
                     cc = true;
                     if (xm == eX && y == eY)
                     {
-                        Console.WriteLine($"Итераций: {iterations}");
-                        Console.WriteLine($"Состояний: {states}");
-                        Console.WriteLine($"Глухих углов: {deadEnds}");
-                        Console.WriteLine($"Состояний в памяти: {inMemoryStates}");
+                        PrintInfo(iterations, states, deadEnds, inMemoryStates);
                         return new Node(t, maze[xm, y]);
                     }
                     temp.Add(new Node(t, maze[xm, y]));
@@ -80,10 +75,7 @@ public class IDS
                     cc = true;
                     if (x == eX && yp == eY)
                     {
-                        Console.WriteLine($"Итераций: {iterations}");
-                        Console.WriteLine($"Состояний: {states}");
-                        Console.WriteLine($"Глухих углов: {deadEnds}");
-                        Console.WriteLine($"Состояний в памяти: {inMemoryStates}");
+                        PrintInfo(iterations, states, deadEnds, inMemoryStates);
                         return new Node(t, maze[x, yp]);
                     }
                     temp.Add(new Node(t, maze[x, yp]));
@@ -94,10 +86,7 @@ public class IDS
                     cc = true;
                     if (x == eX && ym == eY)
                     {
-                        Console.WriteLine($"Итераций: {iterations}");
-                        Console.WriteLine($"Состояний: {states}");
-                        Console.WriteLine($"Глухих углов: {deadEnds}");
-                        Console.WriteLine($"Состояний в памяти: {inMemoryStates}");
+                        PrintInfo(iterations, states, deadEnds, inMemoryStates);
                         return new Node(t, maze[x, ym]);
                     }
                     temp.Add(new Node(t, maze[x, ym]));
@@ -113,10 +102,7 @@ public class IDS
             iterations++;
 
         } while (open.Count != 0);
-        Console.WriteLine($"Итераций: {iterations}");
-        Console.WriteLine($"Состояний: {states}");
-        Console.WriteLine($"Глухих углов: {deadEnds}");
-        Console.WriteLine($"Состояний в памяти: {inMemoryStates}");
+        PrintInfo(iterations, states, deadEnds, inMemoryStates);
         Console.WriteLine("Лабиринт невозможно пройти!");
         return null;
     }

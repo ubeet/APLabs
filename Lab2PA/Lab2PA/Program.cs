@@ -27,13 +27,13 @@ namespace Lab2PA
             
             var maze1 = AStarAlg(maze, sX, sY, eX, eY);
             Console.WriteLine();
-            var maze2 = IdsAlg(maze, sX, sY, eX, eY);
+            
             if (maze1 != null)
             {
                 Console.WriteLine("Лабиринт после нахождения пути IDS алгоритмом:");
                 PrintMaze(maze1);
             }
-            
+            var maze2 = IdsAlg(maze, sX, sY, eX, eY);
             if (maze2 != null)
             {
                 Console.WriteLine("Лабиринт после нахождения пути A* алгоритмом:");

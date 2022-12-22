@@ -1,5 +1,5 @@
 ﻿namespace Lab2PA;
-
+using static Lab2PA.Funcs;
 public class AStar
 {
     public class Node
@@ -64,10 +64,7 @@ public class AStar
                     Math.Abs(eX - ss.cell.x) + Math.Abs(eY - (ss.cell.y + 1)));
                 if (node.g == 0)
                 {
-                    Console.WriteLine($"Итераций: {iterations}");
-                    Console.WriteLine($"Состояний: {states}");
-                    Console.WriteLine($"Глухих углов: {deadEnds}");
-                    Console.WriteLine($"Состояний в памяти: {close.Count}");
+                    PrintInfo(iterations, states, deadEnds, close.Count);
                     return node;
                 }
                 
@@ -82,10 +79,7 @@ public class AStar
                 
                 if (node.g == 0)
                 {
-                    Console.WriteLine($"Итераций: {iterations}");
-                    Console.WriteLine($"Состояний: {states}");
-                    Console.WriteLine($"Глухих углов: {deadEnds}");
-                    Console.WriteLine($"Состояний в памяти: {close.Count}");
+                    PrintInfo(iterations, states, deadEnds, close.Count);
                     return node;
                 }
                 open.Add(node);
@@ -99,10 +93,7 @@ public class AStar
                 
                 if (node.g == 0)
                 {
-                    Console.WriteLine($"Итераций: {iterations}");
-                    Console.WriteLine($"Состояний: {states}");
-                    Console.WriteLine($"Глухих углов: {deadEnds}");
-                    Console.WriteLine($"Состояний в памяти: {close.Count}");
+                    PrintInfo(iterations, states, deadEnds, close.Count);
                     return node;
                 }
                 open.Add(node);
@@ -115,10 +106,7 @@ public class AStar
                     Math.Abs(eX - (ss.cell.x - 1)) + Math.Abs(eY - ss.cell.y));
                 if (node.g == 0)
                 {
-                    Console.WriteLine($"Итераций: {iterations}");
-                    Console.WriteLine($"Состояний: {states}");
-                    Console.WriteLine($"Глухих углов: {deadEnds}");
-                    Console.WriteLine($"Состояний в памяти: {close.Count}");
+                    PrintInfo(iterations, states, deadEnds, close.Count);
                     return node;
                 }
                 open.Add(node);
@@ -128,10 +116,7 @@ public class AStar
             if (c) states++;
             
         } while (open.Count != 0) ;
-        Console.WriteLine($"Итераций: {iterations}");
-        Console.WriteLine($"Состояний: {states}");
-        Console.WriteLine($"Глухих углов: {deadEnds}");
-        Console.WriteLine($"Состояний в памяти: {close.Count}");
+        PrintInfo(iterations, states, deadEnds, close.Count);
         Console.WriteLine("Лабиринт невозможно пройти!");
         return null;
     }
