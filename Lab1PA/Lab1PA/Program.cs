@@ -6,23 +6,23 @@ class MergeSort {
     
     public static void Main(String[] args)
     {
-        
+        var path = Directory
+            .GetParent(Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory)
+                    .ToString())
+                .ToString());
+        if (Directory.Exists(path + @"\SplittedFiles"))
+        {
+            Directory.Delete(path + @"\SplittedFiles", true);
+        }
         var sss = DateTime.Now;
-        OptimizedSort(Directory
-            .GetParent(Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory)
-                    .ToString())
-                .ToString()) + @"\ss.txt");
-        Console.WriteLine((DateTime.Now - sss));
+        OptimizedSort(path + @"\ss.txt");
+        Console.WriteLine("Время сортировки с оптимизацией: " + (DateTime.Now - sss));
+
         
-        Console.ReadLine();
-        
-        var arr = Array.ConvertAll(File.ReadAllLines(Directory
-            .GetParent(Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory)
-                    .ToString())
-                .ToString()) + @"\sss.txt"), Parse);
+        var arr = Array.ConvertAll(File.ReadAllLines(path + @"\sss.txt"), Parse);
         
         var ss = DateTime.Now;
         Sort(arr, 0, arr.Length - 1);
-        Console.WriteLine((DateTime.Now - ss));
+        Console.WriteLine("\nВремя сортировки без оптимизации: " + (DateTime.Now - ss));
     }
 }

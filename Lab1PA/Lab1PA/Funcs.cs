@@ -150,14 +150,13 @@ public class Funcs
 
     public static void OptimizedSort(string genPath)
     {
-        var splittedFiles = Directory
+        var path = Directory
             .GetParent(Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory)
                     .ToString())
-                .ToString()) + @"\SplittedFiles";
-        var splittedFile = Directory
-            .GetParent(Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory)
-                    .ToString())
-                .ToString()) + @"\SplittedFiles\file{0}.txt";
+                .ToString());
+        var splittedFiles = path + @"\SplittedFiles";
+        Directory.CreateDirectory(splittedFiles);
+        var splittedFile = path + @"\SplittedFiles\file{0}.txt";
         FileSplit(genPath, splittedFile, 10);
         SortSplittedFiles(splittedFiles);
         TempFileMerging(splittedFiles);
