@@ -3,46 +3,48 @@ using System.IO;
 
 namespace Lab3PA.Tree;
 
-public static class AVLTree
+public class AVLTree
 {
-    public static int Height(Node? node)
+    private int Height(Node? node)
     {
         return node?.height ?? 0;
     }
 
-    public static int BalanceFactor(Node? node)
+    private int BalanceFactor(Node? node)
     {
         return Height(node.nodeR) - Height(node.nodeL);
     }
 
-    public static void FixHeight(Node? node)
+    private void FixHeight(Node? node)
     {
         var hL = Height(node.nodeL);
         var hR = Height(node.nodeR);
         node.height = (hL > hR ? hL : hR) + 1;
     }
 
-    public static Node? RotateRight(Node? node)
+    private Node? RotateRight(Node? node)
     {
         var s = node.nodeL;
         node.nodeL = s.nodeR;
         s.nodeR = node;
         FixHeight(node);
         FixHeight(s);
+        
         return s;
     }
-    
-    public static Node? RotateLeft(Node? node)
+
+    private Node? RotateLeft(Node? node)
     {
         var s = node.nodeR;
         node.nodeR = s.nodeL;
         s.nodeL = node;
         FixHeight(node);
         FixHeight(s);
+        
         return s;
     }
-    
-    public static Node? Balance(Node? node)
+
+    private Node? Balance(Node? node)
     {
         FixHeight(node);
         if(BalanceFactor(node) == 2)
@@ -51,16 +53,14 @@ public static class AVLTree
                 node.nodeR = RotateRight(node.nodeR);
             return RotateLeft(node);
         }
-        if(BalanceFactor(node) == -2)
-        {
-            if(BalanceFactor(node.nodeL) > 0)
-                node.nodeL = RotateLeft(node.nodeL);
-            return RotateRight(node);
-        }
-        return node;
+
+        if (BalanceFactor(node) != -2) return node;
+        if(BalanceFactor(node.nodeL) > 0)
+            node.nodeL = RotateLeft(node.nodeL);
+        return RotateRight(node);
     }
 
-    public static Node? Insert(Node? node, int key)
+    public Node? Insert(Node? node, int key)
     {
         if (node == null) return new Node(key);
         if (key < node.key)
@@ -70,12 +70,12 @@ public static class AVLTree
         return Balance(node);
     }
 
-    public static Node? FindMin(Node? node)
+    private Node? FindMin(Node? node)
     {
         return node.nodeL != null ? FindMin(node.nodeL) : node;
     }
 
-    public static Node? RemoveMin(Node? node)
+    private Node? RemoveMin(Node? node)
     {
         if (node.nodeL == null)
             return node.nodeR;
@@ -83,39 +83,43 @@ public static class AVLTree
         return Balance(node);
     }
 
-    public static Node? FillRandom(Node? x, int? num)
+    public Node? FillRandom(Node? x, int? num)
     {
         var rnd = new Random();
         for (int i = 0; i < num; i++)
-        {
             x = Insert(x, rnd.Next(10000));
-        }
 
         return x;
     }
 
-    public static Node? Remove(Node? node, int key)
+    public Node? Remove(Node? node, int key)
     {
         if (node == null) return null;
+        
         if (key < node.key)
             node.nodeL = Remove(node.nodeL, key);
+        
         else if (key > node.key)
             node.nodeR = Remove(node.nodeR, key);
+        
         else
         {
             var l = node.nodeL;
             var r = node.nodeR;
+            
             if (r == null) return l;
+            
             var min = FindMin(r);
             min.nodeR = RemoveMin(r);
             min.nodeL = l;
+            
             return Balance(min);
         }
 
         return Balance(node);
     }
     
-    public static string PrintTree(Node root, int space, int height, string dir) {
+    public string PrintTree(Node root, int space, int height, string dir) {
         if (root == null) {
             return null;
         }
@@ -145,19 +149,21 @@ public static class AVLTree
     }
     
 
-    public static void SaveTree(Node node, StreamWriter sw)
+    public void SaveTree(Node node, StreamWriter sw)
     {
         if (node == null) sw.WriteLine("#");
+        
         else
         {
             sw.WriteLine(node.key);
             sw.WriteLine(node.height);
+            
             SaveTree(node.nodeL, sw);
             SaveTree(node.nodeR, sw);
         }
     }
 
-    public static Node? ReadTree(Node node, StreamReader sr)
+    public Node? ReadTree(Node node, StreamReader sr)
     {
         if (sr.EndOfStream)
         {
