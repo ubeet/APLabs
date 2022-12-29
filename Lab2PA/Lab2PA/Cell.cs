@@ -3,7 +3,7 @@
 public class Cell
 {
     public int x, y;
-    public bool IsWall{get; set;}
+    public bool IsWall{ get; }
     public bool IsWay = false;
 
 

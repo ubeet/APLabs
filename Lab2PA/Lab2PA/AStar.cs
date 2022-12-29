@@ -1,32 +1,12 @@
 ﻿namespace Lab2PA;
-using static Lab2PA.Funcs;
 public class AStar
 {
-    public class Node
-    {
-        public Node? parent { get; }
-        public Cell cell { get; }
-        public int f { get; }
-        public int h { get; }
-        public int g { get; }
-
-        public Node(Node parent, Cell cell, int h, int g)
-        {
-            this.parent = parent;
-            this.cell = cell;
-            f = h + g;
-            this.h = h;
-            this.g = g;
-        }
-        
-    }
-
-    private static bool IsCellHere(List<Node> l, Cell c)
+    private bool IsCellHere(List<Node> l, Cell c)
     {
         return l.Any(n => n.cell.x == c.x && n.cell.y == c.y);
     }
 
-    private static Node? FindWay(Cell[,] maze, int sX, int sY, int eX, int eY)
+    private Node? FindWay(Cell[,] maze, int sX, int sY, int eX, int eY)
     {
         var open = new List<Node>();
         var close = new List<Node>();
@@ -64,7 +44,7 @@ public class AStar
                     Math.Abs(eX - ss.cell.x) + Math.Abs(eY - (ss.cell.y + 1)));
                 if (node.g == 0)
                 {
-                    PrintInfo(iterations, states, deadEnds, close.Count);
+                    Funcs.PrintInfo(iterations, states, deadEnds, close.Count);
                     return node;
                 }
                 
@@ -79,7 +59,7 @@ public class AStar
                 
                 if (node.g == 0)
                 {
-                    PrintInfo(iterations, states, deadEnds, close.Count);
+                    Funcs.PrintInfo(iterations, states, deadEnds, close.Count);
                     return node;
                 }
                 open.Add(node);
@@ -93,7 +73,7 @@ public class AStar
                 
                 if (node.g == 0)
                 {
-                    PrintInfo(iterations, states, deadEnds, close.Count);
+                    Funcs.PrintInfo(iterations, states, deadEnds, close.Count);
                     return node;
                 }
                 open.Add(node);
@@ -106,7 +86,7 @@ public class AStar
                     Math.Abs(eX - (ss.cell.x - 1)) + Math.Abs(eY - ss.cell.y));
                 if (node.g == 0)
                 {
-                    PrintInfo(iterations, states, deadEnds, close.Count);
+                    Funcs.PrintInfo(iterations, states, deadEnds, close.Count);
                     return node;
                 }
                 open.Add(node);
@@ -116,12 +96,12 @@ public class AStar
             if (c) states++;
             
         } while (open.Count != 0) ;
-        PrintInfo(iterations, states, deadEnds, close.Count);
+        Funcs.PrintInfo(iterations, states, deadEnds, close.Count);
         Console.WriteLine("Лабиринт невозможно пройти!");
         return null;
     }
 
-    public static Cell[,]? AStarAlg(Cell[,] maze, int sX, int sY, int eX, int eY)
+    public Cell[,]? AStarAlg(Cell[,] maze, int sX, int sY, int eX, int eY)
     {
         var x = maze;
         var n = FindWay(maze, sX, sY, eX, eY);

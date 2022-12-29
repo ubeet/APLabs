@@ -1,6 +1,6 @@
 ﻿namespace Lab2PA;
 
-public static class Funcs
+public class Funcs
 {
     public static void PrintInfo(int iterations, int states, int deadEnds, int inMemoryStates)
     {
@@ -8,6 +8,5 @@ public static class Funcs
         Console.WriteLine($"Состояний: {states}");
         Console.WriteLine($"Глухих углов: {deadEnds}");
         Console.WriteLine($"Состояний в памяти: {inMemoryStates}");
-        Console.WriteLine("Лабиринт невозможно пройти!");
     }
 }

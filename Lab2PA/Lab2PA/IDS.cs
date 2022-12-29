@@ -1,27 +1,14 @@
 ﻿namespace Lab2PA;
 
-using static Lab2PA.Funcs;
-
 public class IDS
 {
-    public class Node
-    {
-        public Node? parent { get; }
-        public Cell cell { get; }
-
-        public Node(Node parent, Cell cell)
-        {
-            this.parent = parent;
-            this.cell = cell;
-        }
-        
-    }
-    private static bool IsCellHere(List<Node> l, Cell c)
+    
+    private bool IsCellHere(List<Node> l, Cell c)
     {
         return l.Any(n => n.cell.x == c.x && n.cell.y == c.y);
     }
 
-    private static Node? FindWay(Cell[,] maze, int sX, int sY, int eX, int eY)
+    private Node? FindWay(Cell[,] maze, int sX, int sY, int eX, int eY)
     {
         var open = new List<Node>();
         var closed = new List<Node>();
@@ -53,7 +40,7 @@ public class IDS
                     cc = true;
                     if (xp == eX && y == eY)
                     {
-                        PrintInfo(iterations, states, deadEnds, inMemoryStates);
+                        Funcs.PrintInfo(iterations, states, deadEnds, inMemoryStates);
                         return new Node(t, maze[xp, y]);
                     }
                     temp.Add(new Node(t, maze[xp, y]));
@@ -64,7 +51,7 @@ public class IDS
                     cc = true;
                     if (xm == eX && y == eY)
                     {
-                        PrintInfo(iterations, states, deadEnds, inMemoryStates);
+                        Funcs.PrintInfo(iterations, states, deadEnds, inMemoryStates);
                         return new Node(t, maze[xm, y]);
                     }
                     temp.Add(new Node(t, maze[xm, y]));
@@ -75,7 +62,7 @@ public class IDS
                     cc = true;
                     if (x == eX && yp == eY)
                     {
-                        PrintInfo(iterations, states, deadEnds, inMemoryStates);
+                        Funcs.PrintInfo(iterations, states, deadEnds, inMemoryStates);
                         return new Node(t, maze[x, yp]);
                     }
                     temp.Add(new Node(t, maze[x, yp]));
@@ -86,7 +73,7 @@ public class IDS
                     cc = true;
                     if (x == eX && ym == eY)
                     {
-                        PrintInfo(iterations, states, deadEnds, inMemoryStates);
+                        Funcs.PrintInfo(iterations, states, deadEnds, inMemoryStates);
                         return new Node(t, maze[x, ym]);
                     }
                     temp.Add(new Node(t, maze[x, ym]));
@@ -102,12 +89,12 @@ public class IDS
             iterations++;
 
         } while (open.Count != 0);
-        PrintInfo(iterations, states, deadEnds, inMemoryStates);
+        Funcs.PrintInfo(iterations, states, deadEnds, inMemoryStates);
         Console.WriteLine("Лабиринт невозможно пройти!");
         return null;
     }
     
-    public static Cell[,]? IdsAlg(Cell[,] maze, int sX, int sY, int eX, int eY)
+    public Cell[,]? IdsAlg(Cell[,] maze, int sX, int sY, int eX, int eY)
     {
         var x = maze;
         var n = FindWay(maze, sX, sY, eX, eY);

@@ -20,7 +20,7 @@ public class Tests
     public void FailedAStarTest()
     {
         var maze = MazeGen.MatrixGen(path1);
-        maze = AStar.AStarAlg(maze, 1, 1, 39, 39);
+        maze = (new AStar()).AStarAlg(maze, 1, 1, 39, 39);
         
         Assert.AreEqual(null, maze);
     }
@@ -29,7 +29,7 @@ public class Tests
     public void FailedIdsStarTest()
     {
         var maze = MazeGen.MatrixGen(path1);
-        maze = IDS.IdsAlg(maze, 1, 1, 39, 39);
+        maze = (new IDS()).IdsAlg(maze, 1, 1, 39, 39);
         
         Assert.AreEqual(null, maze);
     }
@@ -38,7 +38,7 @@ public class Tests
     public void PassedAStarTest()
     {
         var maze = MazeGen.MatrixGen(path2);
-        maze = AStar.AStarAlg(maze, 1, 1, 39, 39);
+        maze = new AStar().AStarAlg(maze, 1, 1, 39, 39);
         
         if (maze != null)
             Assert.Pass();
@@ -48,7 +48,7 @@ public class Tests
     public void PassedIdsStarTest()
     {
         var maze = MazeGen.MatrixGen(path2);
-        maze = IDS.IdsAlg(maze, 1, 1, 39, 39);
+        maze = (new IDS()).IdsAlg(maze, 1, 1, 39, 39);
         
         if (maze != null)
             Assert.Pass();

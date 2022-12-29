@@ -1,6 +1,4 @@
 ﻿using static Lab2PA.MazeGen;
-using static Lab2PA.AStar;
-using static Lab2PA.IDS;
 
 namespace Lab2PA
 {
@@ -12,7 +10,8 @@ namespace Lab2PA
                            .GetParent(Directory.GetParent(Directory.GetParent(Environment.CurrentDirectory)
                                    .ToString())
                                .ToString())
-                       + @"\mazes\maze2.txt";
+                       + @"\mazes\maze1.txt";
+
             
             var maze = MatrixGen(path);
 
@@ -25,7 +24,10 @@ namespace Lab2PA
             var eX = 39; //Convert.ToInt32(Console.ReadLine());
             var eY = 39; //Convert.ToInt32(Console.ReadLine());
             
-            var maze1 = AStarAlg(maze, sX, sY, eX, eY);
+            var aStar = new AStar();
+            var ids = new IDS();
+            
+            var maze1 = aStar.AStarAlg(maze, sX, sY, eX, eY);
             Console.WriteLine();
             
             if (maze1 != null)
@@ -33,7 +35,7 @@ namespace Lab2PA
                 Console.WriteLine("Лабиринт после нахождения пути IDS алгоритмом:");
                 PrintMaze(maze1);
             }
-            var maze2 = IdsAlg(maze, sX, sY, eX, eY);
+            var maze2 = ids.IdsAlg(maze, sX, sY, eX, eY);
             if (maze2 != null)
             {
                 Console.WriteLine("Лабиринт после нахождения пути A* алгоритмом:");
