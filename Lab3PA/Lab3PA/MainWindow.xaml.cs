@@ -12,7 +12,7 @@ namespace Lab3PA
     public partial class MainWindow : Window
     {
         private Node? x;
-        private AVLTree tree;
+        private AVLTree tree = new AVLTree();
         public MainWindow()
         {
             InitializeComponent();
