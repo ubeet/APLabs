@@ -1,2 +1,2 @@
 # APLabs
-Repository for laboratory work on designing algorithms
+To run the application, run the MainWindow.xaml.cs file
