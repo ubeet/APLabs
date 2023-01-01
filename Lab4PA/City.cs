@@ -1,21 +1,25 @@
-﻿using System;
+﻿using static Lab4PA.Funcs;
 
 namespace Lab4PA;
 
 public class City
 {
-    private int X {get;}
-    private int Y {get;}
+    private double X;
+    private double Y;
 
-    public City(int x, int y)
+    public City(double x, double y)
     {
         X = x;
         Y = y;
     }
     
-    public static float operator -(City c1, City c2)
+    public static double operator -(City c1, City c2)
     {
-        //Console.WriteLine((float) Math.Sqrt(Math.Pow(c1.X - c2.X, 2) + Math.Pow(c1.Y - c2.Y, 2)));
-        return (float) Math.Sqrt(Math.Pow(c1.X - c2.X, 2) + Math.Pow(c1.Y - c2.Y, 2));
+        return Math.Sqrt(Pow(c1.X - c2.X, 2) + Pow(c1.Y - c2.Y, 2));
+    }
+
+    public override string ToString()
+    {
+        return $"({X} ; {Y})";
     }
 }

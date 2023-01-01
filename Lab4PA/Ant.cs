@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+﻿using static Lab4PA.Funcs;
 
 namespace Lab4PA;
 
 public class Ant
 {
-    public List<KeyValuePair<City, int>> tabooList { get; set; }
+    public List<KeyValuePair<City, int>> tabooList { get; }
     private int currentCity;
     private int startCity;
     private double[,] pheromones;
@@ -17,7 +14,7 @@ public class Ant
     public Ant(int startCity, City[] cities, double a, double b, double[,] pheromones)
     {
         this.startCity = startCity;
-        this.currentCity = startCity;
+        currentCity = startCity;
         this.cities = cities;
         this.a = a;
         this.b = b;
@@ -27,13 +24,14 @@ public class Ant
 
     public void StartTheJourney()
     {
-        for (int i = 0; i < cities.Length-1; i++)
+        for (int i = 0; i < cities.Length - 1; i++)
         {
             var chances = GetChances();
-            var indexOfCity = GetRandomIndex(chances);
+            var indexOfCity = GetRandomIndex(chances, i);
             tabooList.Add(new KeyValuePair<City, int>(cities[currentCity], currentCity));
             currentCity = indexOfCity;
         }
+        tabooList.Add(new KeyValuePair<City, int>(cities[currentCity], currentCity));
         tabooList.Add(new KeyValuePair<City, int>(cities[startCity], startCity));
     }
 
@@ -48,14 +46,20 @@ public class Ant
                 continue;
             }
 
+            var desire = Pow(pheromones[currentCity, i] * 100000, a)
+                         * Pow( 30.0 / (cities[currentCity] - cities[i]), b);
             
-            desires[i] = (Math.Pow(pheromones[currentCity, i], a) 
-                          * Math.Pow(4.0 / (cities[currentCity] - cities[i]), b));
-            
+            if (desire == 0)
+                desires[i] = double.Epsilon;
+            else
+                desires[i] = desire;
+
         }
 
         return desires;
     }
+
+    
 
     private static bool IsKeyPairListContains(List<KeyValuePair<City, int>> list, int i)
     {
@@ -68,21 +72,11 @@ public class Ant
         var desires = GetDesires();
         var chances = new double[desires.Length];
 
-        var sumOfDesires = 0.0;
-        //Console.WriteLine();
-        //Console.WriteLine();
-        foreach (var el in desires)
-        {
-            //Console.WriteLine(el);
-            sumOfDesires += el;
-        }
+        var sumOfDesires = desires.Sum();
 
-        //Console.WriteLine();
-        //Console.WriteLine(sumOfDesires);
-        
         for (var i = 0; i < desires.Length; i++)
         {
-            var ss = desires[i] / sumOfDesires;
+            var ss = desires[i] * 100 / sumOfDesires;
             chances[i] = ss;
         }
             
@@ -90,10 +84,13 @@ public class Ant
         return chances;
     }
 
-    private int GetRandomIndex (double[] proportions)
+    
+    private int GetRandomIndex (double[] proportions, int k)
     {
-        var proportionsSorted = proportions.OrderBy(n => n).ToArray();
-        var randomValue = new Random().NextDouble();
+        var proportionsSorted = new double[proportions.Length];
+        Array.Copy(proportions, proportionsSorted, proportions.Length);
+        Array.Sort(proportionsSorted);
+        var randomValue = new Random().NextDouble() * 100;
         int indexOfNum = -1;
         for (int i = 0; i < proportionsSorted.Length; i++)
         {
@@ -108,18 +105,11 @@ public class Ant
 
         if (indexOfNum == -1) throw new Exception("All chances == 0");
 
-        var ii = -1;
         for (int i = 0; i < proportions.Length; i++)
         {
-
-            ii = i;
-            if (proportions[i] == proportionsSorted[indexOfNum])
-            {
-                return i;
-            }
+            if (proportions[i] == proportionsSorted[indexOfNum]) return i;
         }
 
-        Console.WriteLine($"{proportions[ii]} == {proportionsSorted[indexOfNum]} {proportions[ii] == proportionsSorted[indexOfNum]}");
         throw new Exception("All chances == 0");
     }
 }

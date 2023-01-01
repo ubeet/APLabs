@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualBasic;
-
+﻿
 namespace Lab4PA;
 
 public class AntColony
@@ -25,28 +21,38 @@ public class AntColony
 
     public void StartAntColony()
     {
+        
         var rnd = new Random();
         var pheromones = CreatePheromoneMatrix(cities.Length);
+        
         double distance = 0;
-        List<KeyValuePair<City, int>> antJourney = null;
+        var minDistance = double.MaxValue;
+        List<KeyValuePair<City, int>> minJourney = null;
         for (int i = 0; i < iterations; i++)
         {
+            var pheromonesCopy = MatrixCopy(pheromones);
             pheromones = EvaporationOfPheromones(pheromones);
             for (int j = 0; j < ants; j++)
             {
-                var ant = new Ant(rnd.Next(0, cities.Length), cities, a, b, pheromones);
+                
+                var ant = new Ant(rnd.Next(0, cities.Length), cities, a, b, pheromonesCopy);
                 ant.StartTheJourney();
-                antJourney = ant.tabooList;
+                var antJourney = ant.tabooList;
                 distance = DistanceOfTheJourney(antJourney);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    minJourney = antJourney;
+                }
                 pheromones = SetNewPheromones(antJourney, distance, pheromones);
             }
 
-            
-            
             Console.WriteLine($"Дистанция после {i+1} итерации: {distance}");
+
         }
 
-        Console.WriteLine($"Лучший путь:\n{JourneyToString(antJourney)}\nДистанция: {distance}");
+        if (minJourney != null)
+            Console.WriteLine($"Лучший путь:\n{JourneyToString(minJourney)}\nДистанция: {minDistance}");
     }
 
     private string JourneyToString(List<KeyValuePair<City, int>> antJourney)
@@ -57,17 +63,15 @@ public class AntColony
     private double[,] SetNewPheromones(List<KeyValuePair<City, int>> antJourney, double distance, double[,] pheromones)
     {
         for (int i = 0; i < antJourney.Count - 1; i++)
-        {
             pheromones = ChangeValueOfPheromones(pheromones, antJourney[i].Value, antJourney[i + 1].Value, Q / distance);
-        }
-
+        
         return pheromones;
     }
 
     private double DistanceOfTheJourney(List<KeyValuePair<City, int>> antJourney)
     {
-        var distance = 0f;
-        for (int i = 0; i < antJourney.Count-1; i++)
+        var distance = 0.0;
+        for (var i = 0; i < antJourney.Count-1; i++)
             distance += antJourney[i].Key - antJourney[i + 1].Key;
         
         return distance;
@@ -85,6 +89,19 @@ public class AntColony
 
         return pheromones;
     }
+
+    private double[,] MatrixCopy(double[,] matrix)
+    {
+        var copy = new double[matrix.GetLength(0), matrix.GetLength(1)];
+        for (int i = 0; i < copy.GetLength(0); i++)
+        {
+            for (int j = 0; j < copy.GetLength(1); j++)
+            {
+                copy[i, j] = matrix[i, j];
+            }
+        }
+        return copy;
+    }
     
     private double[,] ChangeValueOfPheromones(double[,] pheromones, int i, int j, double value)
     {
@@ -100,7 +117,7 @@ public class AntColony
         {
             for (int j = 0; j < pheromone.GetLength(1); j++)
             {
-                pheromone[i, j] = 0.1f;
+                pheromone[i, j] = 2;
             }
         }
 
