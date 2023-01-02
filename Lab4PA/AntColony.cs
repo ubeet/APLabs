@@ -19,7 +19,7 @@ public class AntColony
         this.cities = cities;
     }
 
-    public void StartAntColony()
+    public double StartAntColony()
     {
         
         var rnd = new Random();
@@ -53,6 +53,7 @@ public class AntColony
 
         if (minJourney != null)
             Console.WriteLine($"Лучший путь:\n{JourneyToString(minJourney)}\nДистанция: {minDistance}");
+        return minDistance;
     }
 
     private string JourneyToString(List<KeyValuePair<City, int>> antJourney)

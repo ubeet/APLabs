@@ -16,7 +16,7 @@ public static class Funcs
     {
 
         var ss = new List<City>();
-        Random rnd = new Random();
+        var rnd = new Random();
         while (ss.Count < numOfCities)
         {
             var c = new City(rnd.NextDouble() * maxDistance * 2, rnd.NextDouble() * maxDistance * 2);
