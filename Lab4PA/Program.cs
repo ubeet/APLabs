@@ -9,7 +9,7 @@ class Program
         Console.WriteLine("Генерация городов...");
         var cities = Gen(150, 50, 5);
         Console.WriteLine("Города сгенерировались");
-        var antColony = new AntColony(35, 200, 2, 3, 0.4, 1000, cities);
+        var antColony = new AntColony(35, 1000, 2, 3, 0.4, 1000, cities);
         antColony.StartAntColony();
     }
 }

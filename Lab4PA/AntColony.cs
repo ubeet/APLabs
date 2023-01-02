@@ -26,12 +26,13 @@ public class AntColony
         var pheromones = CreatePheromoneMatrix(cities.Length);
         
         double distance = 0;
-        var minDistance = double.MaxValue;
+        var minDistance = Double.MaxValue;
         List<KeyValuePair<City, int>> minJourney = null;
         for (int i = 0; i < iterations; i++)
         {
             var pheromonesCopy = MatrixCopy(pheromones);
             pheromones = EvaporationOfPheromones(pheromones);
+            var minAntDistance = double.MaxValue;
             for (int j = 0; j < ants; j++)
             {
                 
@@ -44,10 +45,13 @@ public class AntColony
                     minDistance = distance;
                     minJourney = antJourney;
                 }
+                if (distance < minAntDistance)
+                    minAntDistance = distance;
+                    
                 pheromones = SetNewPheromones(antJourney, distance, pheromones);
             }
-
-            Console.WriteLine($"Дистанция после {i+1} итерации: {distance}");
+            
+            Console.WriteLine($"Дистанция после {i+1} итерации: {minAntDistance}");
 
         }
 
