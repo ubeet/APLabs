@@ -19,7 +19,7 @@ public class DataHolder : MonoBehaviour
         }
         else
         {
-            DontDestroyOnLoad(gameObject );
+            DontDestroyOnLoad(gameObject);
         }
     }
 

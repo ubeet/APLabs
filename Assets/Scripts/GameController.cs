@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,7 +21,6 @@ public class GameController : MonoBehaviour
     private int j;
     void Start()
     {
-        
         button = GameObject.FindGameObjectWithTag("SpinButton").GetComponent<Button>();
         value = 0;
         j = 0;
@@ -28,9 +29,6 @@ public class GameController : MonoBehaviour
         playerComp = player.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
         txt = GetComponent<TextMeshProUGUI>();
     }
-
-    // Update is called once per frame
-    
 
     private void ChangePlayer()
     {
@@ -43,9 +41,57 @@ public class GameController : MonoBehaviour
             player = players[i];
             playerComp = player.gameObject.GetComponentsInChildren<TextMeshProUGUI>();
             player.GetComponentInChildren<Image>().color = new Color(0, 1f, 0.16f, 1f);
+            if (i == 0) return;
+            for (int k = 0; k < 5; k++)
+            {
+                    
+                SpinDice();
+                var decision = player.AddComponent<Minimax>().MinimaxAlg(Convert.ToInt32(playerComp[0].text),
+                    Convert.ToInt32(playerComp[1].text), value, true, (5 - k));
+                    
+                Debug.Log($"{value}");
+                    
+                StartCoroutine(ExecuteAfterTime(8, decision.Item1));
+            }
         }
     }
 
+    IEnumerator ExecuteAfterTime(float time, int decision)
+    {
+
+        switch (decision)
+        {
+            case 1:
+                Plus();
+                break;
+            case 2:
+                Minus();
+                break;
+            case 3:
+                MultiplicationByTwo();
+                break;
+            case 4:
+                MultiplicationByThree();
+                break;
+            case 5:
+                MultiplicationByFour();
+                break;
+            case 6:
+                DivisionByTwo();
+                break;
+            case 7:
+                DivisionByThree();
+                break;
+            case 8:
+                DivisionByFour();
+                break;
+            
+        }
+        yield return new WaitForSeconds(time);
+    }
+    
+    
+    
     public void SpinDice()
     {
         var rnd = new Random();
